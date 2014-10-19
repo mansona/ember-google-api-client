@@ -44,6 +44,8 @@ export default Em.Mixin.create(Em.PromiseProxyMixin, {
   }.observes('gapiReady').on('init'),
 
   authorize: function(now) {
+    Em.assert("ClientId must be set before authorization", this.get('clientId'));
+
     this.get('_gapi').auth.authorize({
       client_id: this.get('clientId'),
       scope: this.get('scope'),

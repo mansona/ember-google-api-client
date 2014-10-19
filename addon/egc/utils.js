@@ -7,3 +7,20 @@ export function handleGapiResponse(resolve, reject, DEBUG) {
     Em.run(null, resolve, res);
   };
 }
+
+function handleGapiResponsePromise(promise, DEBUG) {
+  return promise.then(function(res){
+    if(DEBUG){
+      Em.Logger.debug('gapi success response');
+      Em.Logger.debug(res);
+    }
+  }, function(err){
+    //show this regardless of DEBUG status
+    Em.Logger.error('gapi error response');
+    Em.Logger.error(err);
+
+    throw err;
+  });
+}
+
+export {handleGapiResponsePromise};
